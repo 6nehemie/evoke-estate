@@ -1,6 +1,8 @@
 package _6nehemie.com.evoke_estate.services;
 
+import _6nehemie.com.evoke_estate.models.Token;
 import _6nehemie.com.evoke_estate.models.User;
+import _6nehemie.com.evoke_estate.repositories.TokenRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -17,9 +19,11 @@ import java.util.function.Function;
 public class JwtService {
 
     private final String SECRET_KEY;
+    private final TokenRepository tokenRepository;
 
-    public JwtService(@Value("${jwt.secret}") String secretKey) {
+    public JwtService(@Value("${jwt.secret}") String secretKey, TokenRepository tokenRepository) {
         SECRET_KEY = secretKey;
+        this.tokenRepository = tokenRepository;
     }
 
     public String extractUsername(String token) {
@@ -30,7 +34,11 @@ public class JwtService {
 
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);
-        return (username.equals(user.getUsername()) && !isTokenExpired(token));
+        
+        boolean isValid = tokenRepository.findByToken(token)
+                .map(Token::isValid).orElse(false);
+        
+        return (username.equals(user.getUsername()) && !isTokenExpired(token) && isValid);
     }
 
     private boolean isTokenExpired(String token) {

@@ -35,6 +35,9 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     // Followers
     @OneToMany(mappedBy = "following")
