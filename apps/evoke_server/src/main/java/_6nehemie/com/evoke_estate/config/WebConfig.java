@@ -10,8 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
-
+    
     private final RateLimiter rateLimiter;
     @Value("${cors.allowed.origins}")
     private String origin;
@@ -23,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(origin) // Only allow this origin
+                .allowedOrigins("origin") // Only allow this origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 
