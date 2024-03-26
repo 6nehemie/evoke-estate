@@ -5,9 +5,7 @@ const getPostByUsername = async (username: string) => {
     const response = await axios.get(
       `${process.env.EVOKE_URL}/posts/user/${username}`
     );
-    const data = response.data;
-
-    return data;
+    return response.data;
   } catch (error: AxiosError | any) {
     const errorMsg = error.response.data.message;
     console.error(error);
