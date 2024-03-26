@@ -11,6 +11,7 @@ const logoutAction = async () => {
 
   try {
     await evokeReq.post(`${process.env.EVOKE_URL}/auth/logout`);
+    cookies().delete('accessToken');
   } catch (error: AxiosError | any) {
     console.error(error);
     return { error: error };

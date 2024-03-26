@@ -7,7 +7,7 @@ const getPostById = async (id: string) => {
 
     return data;
   } catch (error: AxiosError | any) {
-    const errorMsg = (error.response.data.message as any) || '';
+    const errorMsg = (error.response?.data.message as any) || '';
     console.error(error);
     return { error: errorMsg };
   }

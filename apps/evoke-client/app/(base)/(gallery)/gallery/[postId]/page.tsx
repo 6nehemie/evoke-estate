@@ -15,11 +15,11 @@ async function PostPage({ params }: { params: { postId: string } }) {
   const user = await getUserData();
   const post: IPost = response;
 
-  if (response.error) redirect('/');
+  if (response.error || !post) redirect('/');
 
-  const ownPost = user.username === post.author.username;
+  const ownPost = user?.username === post.author?.username;
 
-  const userInitials = post.author.fullName
+  const userInitials = post.author?.fullName
     .split(' ')
     .map((n) => n[0])
     .join('');
@@ -27,21 +27,24 @@ async function PostPage({ params }: { params: { postId: string } }) {
   return (
     <section>
       <div className="flex flex-col items-center py-14">
-        <Link href={`/${post.author.username}`}>
-          <UserProfileAvatar src={post.author.avatar} initials={userInitials} />
+        <Link href={`/${post.author?.username}`}>
+          <UserProfileAvatar
+            src={post.author?.avatar}
+            initials={userInitials}
+          />
         </Link>
 
         <div className="flex flex-col items-center text-center mt-6">
           <div className="mb-4">
             <PostFollowUser
-              username={post.author.username}
-              fullName={post.author.fullName}
+              username={post.author?.username}
+              fullName={post.author?.fullName}
               isFollowing={true}
             />
           </div>
 
           <h3 className="text-2xl font-semibold leading-none ">
-            {post.title.toUpperCase()}
+            {post?.title?.toUpperCase()}
           </h3>
 
           <PostAction

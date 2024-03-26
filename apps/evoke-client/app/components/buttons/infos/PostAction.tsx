@@ -28,10 +28,10 @@ const PostAction: React.FC<PostActionProps> = ({
   const router = useRouter();
   const params = useParams();
   const user = useAppSelector((state) => state.user);
-  const tempLikedPost = post.likedBy.filter(
+  const tempLikedPost = post.likedBy?.filter(
     (u) => u.username === user.username
   );
-  const hasLikedPost = tempLikedPost.length > 0;
+  const hasLikedPost = tempLikedPost?.length > 0;
 
   const buttonActionStyle = `h-11 w-11 rounded-full sm:hover:bg-neutral-200 transition-colors duration-200`;
 
