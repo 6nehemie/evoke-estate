@@ -90,6 +90,13 @@
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.12.683</version>
         </dependency>
+        
+        <!-- For Rate Limiting -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1-jre</version>
+        </dependency>
     </dependencies>
 
     <build>

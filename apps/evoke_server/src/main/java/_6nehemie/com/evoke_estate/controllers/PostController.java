@@ -21,7 +21,7 @@ public class PostController {
     public PostController(PostService postService) {
         this.postService = postService;
     }
-
+    
     @GetMapping
     public ResponseEntity<List<PostPostResponseDto>> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
