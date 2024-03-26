@@ -31,7 +31,14 @@ const userSlice = createSlice({
       state.avatar = action.payload as string;
     },
     clearUser: (state) => {
-      state = initialState;
+      state.id = undefined;
+      state.fullName = '';
+      state.email = '';
+      state.username = '';
+      state.avatar = '';
+      state.title = '';
+      state.location = '';
+      state.description = '';
     },
   },
 });

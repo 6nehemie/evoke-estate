@@ -6,16 +6,35 @@ import {
 import NavbarAvatar from '../../avatars/NavbarAvatar';
 import Link from 'next/link';
 import { IUserState } from '@/utils/types/evokeApi/types';
+import logoutAction from '@/utils/actions/logoutAction';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/lib/hooks';
+import { clearUser } from '@/lib/features/user/userSlice';
 
 interface AvatarMenuProps {
   user?: IUserState;
 }
 
 const AvatarMenu: React.FC<AvatarMenuProps> = ({ user }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const isLoggedIn = true;
 
   const navigationStyle =
     'px-4 py-2 hover:bg-neutral-50 transition-colors duration-200';
+
+  const handleLogout = async () => {
+    try {
+      const response = await logoutAction();
+
+      if (response && response.error) {
+        throw new Error(response.error);
+      }
+
+      dispatch(clearUser());
+      router.push('/sign-in');
+    } catch (error) {}
+  };
 
   return (
     <HoverCard closeDelay={100} openDelay={5}>
@@ -53,12 +72,12 @@ const AvatarMenu: React.FC<AvatarMenuProps> = ({ user }) => {
             Dashboard
           </Link>
 
-          <Link
-            href={'/sign-in'}
-            className={`${navigationStyle} py-4 mt-2 border-t border-t-neutral-100`}
+          <button
+            onClick={handleLogout}
+            className={`${navigationStyle} py-4 mt-2 border-t border-t-neutral-100 text-left`}
           >
             Sign Out
-          </Link>
+          </button>
         </div>
       </HoverCardContent>
     </HoverCard>
