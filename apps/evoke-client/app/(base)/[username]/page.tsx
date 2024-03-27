@@ -1,9 +1,15 @@
 import { PostsWrapper, UserProfileAvatar } from '@/app/components';
 import ProfileBtnAction from '@/app/components/buttons/profile/ProfileBtnAction';
 import PostCardProfile from '@/app/components/cards/posts/PostCardProfile';
+import isFollowingAction from '@/utils/actions/isFollowingAction';
 import getPostByUsername from '@/utils/functions/posts/getPostByUsername';
-import { getUserByUsername } from '@/utils/functions/users';
-import { IPost, ISimpleUser } from '@/utils/types/evokeApi/types';
+import { getUserByUsername, getUserData } from '@/utils/functions/users';
+import {
+  IAuthor,
+  IPost,
+  ISimpleUser,
+  IUserState,
+} from '@/utils/types/evokeApi/types';
 import { redirect } from 'next/navigation';
 
 const UserProfilePage = async ({
@@ -11,25 +17,17 @@ const UserProfilePage = async ({
 }: {
   params: { username: string };
 }) => {
-  let user: ISimpleUser;
-  const posts: IPost[] = [];
   const username = params.username;
+  const user = await getUserData();
+  const isFollowing = await isFollowingAction(username);
 
-  try {
-    const userResponse = await getUserByUsername(username);
-    const postsResponse = await getPostByUsername(username);
+  //? Retrieve user profile and posts
+  const userProfile: ISimpleUser = await getUserByUsername(username);
+  const posts: IPost[] = await getPostByUsername(username);
 
-    if (userResponse.error) {
-      throw new Error(userResponse.error);
-    }
+  if (!userProfile) redirect('/');
 
-    user = userResponse;
-    posts.push(...postsResponse);
-  } catch (error) {
-    console.error(error);
-    // act accordingly redirect to homepage or show error message
-    redirect('/');
-  }
+  console.log('User:', userProfile);
 
   return (
     <section className="py-10 p-side">
@@ -37,25 +35,29 @@ const UserProfilePage = async ({
       <div className="max-w-wide w-full mx-auto flex max-lg:flex-col lg:justify-between mb-14">
         <div>
           <div className="flex lg:items-center gap-7 max-lg:flex-col max-lg:gap-6">
-            <UserProfileAvatar src={user.avatar} />
+            <UserProfileAvatar src={userProfile.avatar} />
 
             <div className="">
               <h2 className="text-3xl font-medium leading-none max-lg:text-xl">
-                {user.fullName}
+                {userProfile.fullName}
               </h2>
               <p className="text-2xl font-light max-lg:text-lg">
-                @{user.username}
+                @{userProfile.username}
               </p>
             </div>
           </div>
 
-          <p className="font-light mt-4 lg:mt-9">{user.title}</p>
+          <p className="font-light mt-4 lg:mt-9">{userProfile.title}</p>
 
           <p className="max-w-[397px] mt-3.5 font-light text-sm">
-            {user.description}
+            {userProfile.description}
           </p>
         </div>
-        <ProfileBtnAction user={user} />
+        <ProfileBtnAction
+          user={user}
+          userProfile={userProfile}
+          isFollowingProfile={true}
+        />
       </div>
 
       <PostsWrapper>

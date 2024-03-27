@@ -17,7 +17,7 @@ interface AvatarMenuProps {
 
 const AvatarMenu: React.FC<AvatarMenuProps> = ({ user }) => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const isLoggedIn = true;
 
   const navigationStyle =
@@ -31,7 +31,7 @@ const AvatarMenu: React.FC<AvatarMenuProps> = ({ user }) => {
         throw new Error(response.error);
       }
 
-      dispatch(clearUser());
+      // dispatch(clearUser());
       router.push('/sign-in');
     } catch (error) {}
   };

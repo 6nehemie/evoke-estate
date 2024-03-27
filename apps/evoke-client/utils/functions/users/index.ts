@@ -36,8 +36,7 @@ export const getUserByUsername = async (username: string) => {
 
     return data;
   } catch (error: AxiosError | any) {
-    const errorMsg = error.response.data.message;
     console.error(error);
-    return { error: errorMsg };
+    return null;
   }
 };

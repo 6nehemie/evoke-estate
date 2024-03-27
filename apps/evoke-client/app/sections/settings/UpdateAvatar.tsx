@@ -9,12 +9,14 @@ import removeAvatarAction from '@/utils/actions/removeAvatarAction';
 import updateAvatarAction from '@/utils/actions/updateAvatarAction';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
+import { IUserState } from '@/utils/types/evokeApi/types';
 
-const UpdateAvatar = () => {
+interface IProps {
+  user: IUserState;
+}
+
+const UpdateAvatar: React.FC<IProps> = ({ user }) => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
-
   const initials = convertToInitials(user.fullName);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,17 +31,14 @@ const UpdateAvatar = () => {
     formData.append('avatar', file);
 
     try {
-      const newAvatar = await updateAvatarAction(formData);
-
-      // Set the new avatar in the redux store
-      dispatch(setAvatar(newAvatar));
+      await updateAvatarAction(formData);
+      router.refresh();
     } catch (error) {}
   };
 
   const handleAvatarRemoval = async () => {
     try {
       await removeAvatarAction();
-      dispatch(setAvatar(''));
       router.refresh();
     } catch (error) {
       console.error(error);

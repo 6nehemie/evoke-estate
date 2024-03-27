@@ -14,6 +14,8 @@ const followUserAction = async (username: string) => {
       `${process.env.EVOKE_URL}/follows/follow/${username}`
     );
 
+    console.log('Following response:', response.data);
+
     return response.data.isLiked;
   } catch (error: AxiosError | any) {
     console.error('Following response:', error.response.data);

@@ -2,6 +2,7 @@ package _6nehemie.com.evoke_estate.controllers;
 
 import _6nehemie.com.evoke_estate.dto.follows.FollowingResponseDto;
 import _6nehemie.com.evoke_estate.dto.follows.GetFollowsResponseDto;
+import _6nehemie.com.evoke_estate.dto.follows.IsFollowingResponseDto;
 import _6nehemie.com.evoke_estate.services.FollowService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +24,12 @@ public class FollowController {
     public ResponseEntity<GetFollowsResponseDto> getFollowers(@Validated @PathVariable(name = "username") String username) {
             
             return ResponseEntity.ok(followService.getFollows(username));
+    }
+    
+    @GetMapping("/following/{username}")
+    public ResponseEntity<IsFollowingResponseDto> isFollowing(@AuthenticationPrincipal UserDetails userDetails, @Validated @PathVariable(name = "username") String userProfileUsername) {
+        
+        return ResponseEntity.ok(followService.isFollowing(userDetails.getUsername(), userProfileUsername));
     }
 
     @PostMapping("/follow/{username}")

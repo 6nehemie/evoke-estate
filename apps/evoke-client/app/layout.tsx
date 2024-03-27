@@ -20,9 +20,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <StoreProvider user={user}>
-        <body className={`${inter.className} bg-primary-100`}>{children}</body>
-      </StoreProvider>
+      {/* <StoreProvider user={user}> */}
+      <body className={`${inter.className} bg-primary-100`}>{children}</body>
+      {/* </StoreProvider> */}
     </html>
   );
 }

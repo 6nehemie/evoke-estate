@@ -7,9 +7,8 @@ const getPostByUsername = async (username: string) => {
     );
     return response.data;
   } catch (error: AxiosError | any) {
-    const errorMsg = error.response.data.message;
     console.error(error);
-    return { error: errorMsg };
+    return [];
   }
 };
 

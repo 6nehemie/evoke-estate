@@ -6,7 +6,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 
-const page = () => {
+const page = async () => {
   const profileDescription = `Refine your profile, refresh directory info, and upload a profile picture to showcase your identity.`;
   const proSubscriptionDescription =
     "Unlock the power of Pro subscription: Post courses & vote for the week's best design. Elevate your influence in the design community.";

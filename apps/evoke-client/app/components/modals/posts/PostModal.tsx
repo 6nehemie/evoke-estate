@@ -1,24 +1,24 @@
 'use client';
 
-import { IPost } from '@/utils/types/evokeApi/types';
+import { IPost, IUserState } from '@/utils/types/evokeApi/types';
 import { useRouter } from 'next/navigation';
 import { PostAction } from '../..';
 import GalleryAvatar1 from '../../avatars/GalleryAvatar1';
 import PostFollowUser from '../../buttons/infos/PostFollowUser';
-import { useAppSelector } from '@/lib/hooks';
 
 interface PostModalProps {
   post: IPost;
+  user?: IUserState;
   children: React.ReactNode;
 }
 
-const PostModal: React.FC<PostModalProps> = ({ post, children }) => {
+const PostModal: React.FC<PostModalProps> = ({ post, children, user }) => {
   const router = useRouter();
   const closeModal = () => router.back();
-  const user = useAppSelector((state) => state.user);
-  const ownPost = user.username === post.author.username;
+
+  const ownPost = user?.username === post.author.username;
   const tempLikedPost = post.likedBy.filter(
-    (u) => u.username === user.username
+    (u) => u.username === user?.username
   );
   const hasLikedPost = tempLikedPost.length > 0;
 
@@ -59,6 +59,7 @@ const PostModal: React.FC<PostModalProps> = ({ post, children }) => {
           </div>
 
           <PostAction
+            user={user}
             post={post}
             ownPost={ownPost}
             hasLikedPost={hasLikedPost}

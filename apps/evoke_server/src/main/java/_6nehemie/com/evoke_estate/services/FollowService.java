@@ -2,6 +2,7 @@ package _6nehemie.com.evoke_estate.services;
 
 import _6nehemie.com.evoke_estate.dto.follows.FollowingResponseDto;
 import _6nehemie.com.evoke_estate.dto.follows.GetFollowsResponseDto;
+import _6nehemie.com.evoke_estate.dto.follows.IsFollowingResponseDto;
 import _6nehemie.com.evoke_estate.dto.responses.UserByUsernameResponseDto;
 import _6nehemie.com.evoke_estate.exceptions.NotFoundException;
 import _6nehemie.com.evoke_estate.models.Follow;
@@ -85,5 +86,21 @@ public class FollowService {
 
         
         return null;
+    }
+
+    public IsFollowingResponseDto isFollowing(String username, String userProfileUsername) {
+            
+            User follower = userRepository.findByUsernameOrEmail(username)
+                    .orElseThrow(() -> new NotFoundException("User not found"));
+            
+            User following = userRepository.findByUsernameOrEmail(userProfileUsername)
+                    .orElseThrow(() -> new NotFoundException("User not found"));
+            
+            if (follower.equals(following)) {
+                return new IsFollowingResponseDto(false);
+            }
+            
+            return new IsFollowingResponseDto(followRepository.existsByFollowerAndFollowing(follower, following));
+        
     }
 }

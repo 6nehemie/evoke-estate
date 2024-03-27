@@ -2,7 +2,7 @@
 
 import { useAppSelector } from '@/lib/hooks';
 import likePostAction from '@/utils/actions/likePostAction';
-import { IPost } from '@/utils/types/evokeApi/types';
+import { IPost, IUserState } from '@/utils/types/evokeApi/types';
 import {
   HandThumbUpIcon,
   PencilIcon,
@@ -17,19 +17,20 @@ interface PostActionProps {
   btnClassName?: string;
   post: IPost;
   hasLikedPost?: boolean;
+  user?: IUserState;
 }
 
 const PostAction: React.FC<PostActionProps> = ({
   className,
   btnClassName,
   ownPost,
+  user,
   post,
 }) => {
   const router = useRouter();
   const params = useParams();
-  const user = useAppSelector((state) => state.user);
   const tempLikedPost = post.likedBy?.filter(
-    (u) => u.username === user.username
+    (u) => u.username === user?.username
   );
   const hasLikedPost = tempLikedPost?.length > 0;
 
@@ -42,7 +43,7 @@ const PostAction: React.FC<PostActionProps> = ({
   };
 
   const handleLike = async () => {
-    if (!user.username) router.push('/sign-in');
+    if (!user?.username) router.push('/sign-in');
     try {
       const isLiked = await likePostAction(post.id);
       if (isLiked.error) throw new Error('Error liking post');

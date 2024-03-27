@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { errorMonitor } from 'events';
 
 interface IErrorResponse {
@@ -25,8 +25,8 @@ export async function POST(request: Request, response: Response) {
 
     return NextResponse.json({ user }, { status: 200 });
     // return response;
-  } catch (error: any) {
-    const errorData = (await error.response.data) as IErrorResponse;
+  } catch (error: AxiosError | any) {
+    const errorData = (await error.response?.data) as IErrorResponse;
     console.error(errorData);
     return NextResponse.json({ error: errorData }, { status: 400 });
   }

@@ -1,3 +1,4 @@
+import { getUserData } from '@/utils/functions/users';
 import { Navbar } from '../components';
 import Footer from '../components/footer/Footer';
 import HomepageSearch from '../sections/helpersLayouts/HomepageSearch';
@@ -9,10 +10,12 @@ export default async function BaseLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getUserData();
+
   return (
     <section className="grid-layout">
       <div className="sticky top-0 bg-primary-100 z-[100] p-side">
-        <Navbar />
+        <Navbar user={user} />
       </div>
 
       <main className="">

@@ -10,6 +10,6 @@ public class RateLimiterConfig {
     @Bean
     public RateLimiter rateLimiter() {
         // permits 1 request per second. Adjust this value based on your requirements.
-        return RateLimiter.create(1.0);
+        return RateLimiter.create(10.0);
     }
 }

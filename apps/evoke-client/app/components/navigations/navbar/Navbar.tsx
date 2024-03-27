@@ -1,19 +1,18 @@
 'use client';
 
-import { BellIcon } from '@heroicons/react/24/outline';
 import Logo from '../../icons/logo/Logo';
 
 import Link from 'next/link';
-import IconContainer from '../../icons/container/IconContainer';
 import NavSearch from '../../search/NavSearch';
 import AvatarMenu from '../menu/AvatarMenu';
-// import { user } from '@/app/constant';Ø
-import { useAppSelector } from '@/lib/hooks';
 import UploadMenu from '../menu/UploadMenu';
+import { IUserState } from '@/utils/types/evokeApi/types';
 
-const Navbar = () => {
-  const user = useAppSelector((state) => state.user);
+interface INavbarProps {
+  user: IUserState;
+}
 
+const Navbar: React.FC<INavbarProps> = ({ user }) => {
   // display icons based on screen size
   const iconResponsive = 'max-lg:hidden';
   const isLoggedIn = user?.username ? true : false;
