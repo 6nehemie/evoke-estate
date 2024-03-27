@@ -65,7 +65,7 @@ git clone https://github.com/NehemieMbg/evoke-estate.git
 - Navigate to the `evoke-client` directory:
 
 ```shell
-cd evoke-client
+cd apps/evoke-client
 ```
 
 - Set up the environment variable for the frontend. Create a `.env` file in the root of the `evoke-client` directory and specify the API URL:
@@ -85,6 +85,12 @@ npm start
 - Open your web browser and navigate to the specified localhost port to view the frontend application.
 
 ### 2 - Backend Setup
+
+- For the backend server, navigate to the evoke-server directory:
+
+```shell
+cd apps/evoke-server
+```
 
 - Ensure you have Apache Maven installed on your system. If not, you can download it from [Maven's official](https://maven.apache.org/download.cgi) website and follow the installation instructions.
 - Set up a PostgreSQL database on AWS, Railway or locally.
