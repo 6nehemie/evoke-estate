@@ -50,6 +50,28 @@ For additional design resources and mockups, please explore the `figma-design` f
 - Authentication: JSON Web Tokens (JWT)
 - File Storage: AWS S3
 
+## Project Progression
+
+Evoke Estate has made significant progress, with most of the core features implemented. However, a few minor adjustments are still underway to ensure a seamless user experience and a full execution from the front end.
+
+### Remaining Tasks:
+
+- Fine-tuning user interface elements for improved usability.
+- Optimizing performance and responsiveness.
+
+### Deployment Status:
+
+The project has been deployed, but some features may not be fully functional yet. I'm actively working to address any issues and ensure a smooth user experience. Thank you for your patience as I continue to improve Evoke Estate.
+
+### Additional Tasks:
+
+- Establish seamless communication between the front-end and back-end servers.
+- Adjust front-end code to ensure correct data fetching and rendering.
+- Conduct refactorization for improved code quality and maintainability.
+- Implement skeleton loading and button loading to enhance user experience during data transmission.
+- Develop the follow & story functionality in the front end.
+- Implement search functionality to enable users to find specific architectural designs more efficiently.
+
 ## Getting Started
 
 To explore the Evoke Estate project, follow these steps:
