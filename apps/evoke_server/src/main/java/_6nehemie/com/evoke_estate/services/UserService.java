@@ -192,8 +192,6 @@ public class UserService {
     }
     
     public AvatarUploadResponseDto updateAvatar(String username, MultipartFile avatar) {
-
-        System.out.println("File: " + avatar);
         
         // Find user by username
         Optional<User> optionalUser = userRepository.findByUsernameOrEmail(username);
